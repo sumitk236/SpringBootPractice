@@ -35,7 +35,7 @@ public class HelloController {
 	EmployeeRepo emprepo;
 
 	@Value("${server.port}")
-	String portAddress;
+	String port_Address;
 	
 	
 	@RequestMapping("/Employee")
