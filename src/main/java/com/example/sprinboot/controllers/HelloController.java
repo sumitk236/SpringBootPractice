@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +35,9 @@ public class HelloController {
 	
 	@Autowired
 	EmployeeRepo emprepo;
+	
+	@Autowired
+	MessageChannel output;
 
 	@Value("${server.port}")
 	String port_Address;
@@ -78,6 +83,12 @@ public class HelloController {
 		database.addEmployeeInDB(employee);
 		return ResponseEntity.ok().build();
 		
+	}
+	
+	@PostMapping("/publish")
+	public ResponseEntity publishEvent(@RequestBody Employee employee) {
+		output.send(MessageBuilder.withPayload(employee).build());
+		return ResponseEntity.ok().build();
 	}
 
 }
