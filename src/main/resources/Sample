@@ -1,0 +1,9 @@
+{"namespace": "com.example.avro",
+  "type": "record",
+  "name": "EmployeeDetails",
+  "fields": [
+    { "name" : "employeeName" , "type" : "string" },
+     { "name" : "role" , "type" : "string" },
+     { "name" : "gender" , "type" : "string" }
+  ]
+}
